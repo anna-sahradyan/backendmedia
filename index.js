@@ -22,7 +22,7 @@ app.use(`/posts`, postRouter);
 app.use(`/user`,userRouter);
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__filename, "../frontendmedia/build")))
+    app.use(express.static(path.join(__dirname, "../frontendmedia/build")))
     app.get("*", (req, res) => {
         res.sendFile(
             path.resolve(__dirname, "../", "frontendmedia", "build", "index.html")
