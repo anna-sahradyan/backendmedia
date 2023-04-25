@@ -6,7 +6,7 @@ import cors from "cors";
 import postRouter from './routes/posts-router.js';
 import userRouter from "./routes/user-router.js";
 import path from "path";
-const cors_proxy = require('cors-anywhere');
+import cors_proxy from 'cors-anywhere';
 //?Constants
 
 const PORT = process.env.PORT || 4000;
