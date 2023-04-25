@@ -6,6 +6,7 @@ import cors from "cors";
 import postRouter from './routes/posts-router.js';
 import userRouter from "./routes/user-router.js";
 import path from "path";
+const cors_proxy = require('cors-anywhere');
 //?Constants
 
 const PORT = process.env.PORT || 4000;
@@ -16,14 +17,16 @@ dotenv.config();
 //?Middleware
 app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
-app.use(cors({
-origin:["http://localhost:4000 ","https://backendmedia-xcno.onrender.com"]
-}));
+app.use(cors());
 
 //?Routes
 app.use(`/posts`, postRouter);
 app.use(`/user`,userRouter);
-
+let proxy = cors_proxy.createServer({
+    originWhitelist: [],
+    requireHeaders: [],
+    removeHeaders: [],
+});
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontendmedia/build")))
     app.get("*", (req, res) => {
